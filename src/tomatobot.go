@@ -17,7 +17,6 @@ import (
 	"github.com/jonas747/dca"
 )
 
-// discord, err := discordgo.New("Bot"+"OTE2NTk1MDcxMDAzMDMzNjAx.Yasbrg.y_rWcBdg97cAu6PWa4RuLtFhTAY")
 var token string
 var buffer = make([][]byte, 0)
 var run *exec.Cmd
