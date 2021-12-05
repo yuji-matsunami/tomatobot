@@ -71,13 +71,14 @@ func main() {
 // この関数は、ボットがDiscordから "ready "イベントを受信したときに、（上記のAddHandlerにより）呼び出される
 func ready(s *discordgo.Session, event *discordgo.Ready) {
 	
-	s.UpdateGameStatus(0, "!start")
+	s.UpdateGameStatus(0, "ポモドーロ")
 }
 
 // ギルドの作成をしてチャンネルにメッセージを送信する
 func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 
 	if event.Guild.Unavailable {
+		fmt.Println("ギルドがみつかりません")
 		return
 	}
 
@@ -118,6 +119,14 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 				return
 			}
 		}
+	} else if strings.HasPrefix(m.Content, "tomatobot"){
+		// コマンドを書かれたチャンネルをみつける
+		c, err := s.State.Channel(m.ChannelID)
+		if err != nil {
+			fmt.Println("not find channel")
+			return
+		}
+		_, _ = s.ChannelMessageSend(c.ID, "!start コマンドでポモドーロを始めます")
 	}
 
 }
